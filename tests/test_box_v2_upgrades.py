@@ -16,6 +16,7 @@ def test_proxy_upgrades():
     account = get_account()
     box = Box.deploy(
         {"from": account},
+        publish_source=True
     )
     proxy_admin = ProxyAdmin.deploy(
         {"from": account},
@@ -28,7 +29,8 @@ def test_proxy_upgrades():
         {"from": account, "gas_limit": 1000000},
     )
     box_v2 = BoxV2.deploy(
-        {"from": account},
+        {"from": account}
+        publish_source=True,
     )
     proxy_box = Contract.from_abi("BoxV2", proxy.address, BoxV2.abi)
     with pytest.raises(exceptions.VirtualMachineError):
